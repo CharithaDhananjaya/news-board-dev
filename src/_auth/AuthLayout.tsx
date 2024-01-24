@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+
 import { FirebaseAuth } from "@/firebase.init";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -21,7 +23,11 @@ function AuthLayout() {
         console.log("ERROR", errorCode, errorMessage);
       });
   });
-  return <div>AuthLayout</div>;
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }
 
 export default AuthLayout;
