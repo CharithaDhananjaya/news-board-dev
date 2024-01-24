@@ -1,85 +1,133 @@
-import { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
+import { useNavigate } from "react-router-dom";
+
+//import { INewUser } from "@/types/index";
 
 import Button from "@/components/Button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/shadui/Form";
 import Input from "@/components/Input";
+import { SignUpValidation } from "@/lib/validations/index";
 
-import { INewUser } from "@/types/index";
+const SignUpForm = () => {
+  const navigate = useNavigate();
 
-function SignupForm() {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<INewUser>();
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof SignUpValidation>>({
+    resolver: zodResolver(SignUpValidation),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      username: "",
+      password: "",
+    },
+  });
 
-  const registerUser: SubmitHandler<INewUser> = (data) => {
-    console.log("New User", data);
-  };
-
-  useEffect(() => {
-    setError("firstName", { types: { required: "First Name is Required." } });
-    setError("lastName", { types: { required: "Last Name is Required." } });
-    setError("email", {
-      types: {
-        required: "Email is Required.",
-        pattern: "Enter Correct Email.",
-      },
-    });
-    setError("userName", { types: { required: "Username is Required." } });
-    setError("password", {
-      types: {
-        required: "Password is Required",
-        minLength:
-          "Password atleast 8 Characters, One letter, One Number and one Special Charactor.",
-      },
-    });
-  }, [setError]);
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof SignUpValidation>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    navigate("/sign-in");
+    console.log(values);
+  }
 
   return (
-    <form onSubmit={handleSubmit(registerUser)}>
-      <Input {...register("firstName", { required: true })} />
-      {errors.firstName && errors.firstName.types && (
-        <p>{errors.firstName.types.required}</p>
-      )}
-      <Input {...register("lastName", { required: true })} />
-      {errors.lastName && errors.lastName.types && (
-        <p>{errors.lastName.types.required}</p>
-      )}
-      <Input
-        {...register("email", {
-          required: true,
-          pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/,
-        })}
-      />
-      {errors.email && errors.email.types && (
-        <p>{errors.email.types.required}</p>
-      )}
-      {errors.email && errors.email.types && (
-        <p>{errors.email.types.pattern}</p>
-      )}
-      <Input {...register("userName", { required: true })} />
-      {errors.userName && errors.userName.types && (
-        <p>{errors.userName.types.required}</p>
-      )}
-      <Input
-        type="password"
-        {...register("password", {
-          required: true,
-          pattern:
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        })}
-      />
-      {errors.password && errors.password.types && (
-        <p>{errors.password.types.required}</p>
-      )}
-      {errors.password && errors.password.types && (
-        <p>{errors.password.types.pattern}</p>
-      )}
-      <Button type="submit">Register the User</Button>
-    </form>
+    <Form {...form}>
+      <div className="flex flex-col text-center">
+        <h1 className="pt-5 text-2xl font-bold md:text-3xl">
+          Create a new account
+        </h1>
+        <p className="mt-2 text-sm font-light md:text-md ">
+          To use NewsBoard, Please enter your details
+        </p>
+      </div>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col w-full gap-2 mt-4 md:w-3/5"
+      >
+        <FormField
+          control={form.control}
+          name="firstName"
+          render={({ field }: { field: string }) => (
+            <FormItem>
+              <FormLabel className="text-sm font-semibold">
+                First Name
+              </FormLabel>
+              <FormControl>
+                <Input type="input" className="shad-input" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }: { field: string }) => (
+            <FormItem>
+              <FormLabel className="text-sm font-semibold">Last Name</FormLabel>
+              <FormControl>
+                <Input type="input" className="shad-input" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }: { field: string }) => (
+            <FormItem>
+              <FormLabel className="text-sm font-semibold">E mail</FormLabel>
+              <FormControl>
+                <Input type="input" className="shad-input" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }: { field: string }) => (
+            <FormItem>
+              <FormLabel className="text-sm font-semibold">Username</FormLabel>
+              <FormControl>
+                <Input type="input" className="shad-input" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }: { field: string }) => (
+            <FormItem>
+              <FormLabel className="text-sm font-semibold">Password</FormLabel>
+              <FormControl>
+                <Input type="password" className="shad-input" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="self-center w-3/5 mt-4 md:w-2/5">
+          Submit
+        </Button>
+      </form>
+    </Form>
   );
-}
+};
 
-export default SignupForm;
+export default SignUpForm;
