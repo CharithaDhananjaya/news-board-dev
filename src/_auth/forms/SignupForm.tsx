@@ -11,7 +11,6 @@ function SignupForm() {
     register,
     handleSubmit,
     setError,
-    setValue,
     formState: { errors },
   } = useForm<INewUser>();
 
