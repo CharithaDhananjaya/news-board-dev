@@ -15,10 +15,3 @@ export const SignInValidation = z.object({
   email: z.string().email().min(2),
   password: z.string().min(2),
 });
-
-export interface UserRecordValidation {
-  firstName: string;
-  lastName: string;
-  email: string;
-  username: string;
-}
