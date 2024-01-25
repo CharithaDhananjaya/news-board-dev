@@ -8,7 +8,7 @@ export const SignUpValidation = z.object({
   lastName: z.string().min(2),
   email: z.string().email().min(2),
   username: z.string().min(2),
-  password: z.string().min(2),
+  password: z.string().min(6),
 });
 
 export const SignInValidation = z.object({
