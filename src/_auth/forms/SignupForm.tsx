@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -113,6 +115,17 @@ const SignUpForm = () => {
         <Button type="submit" className="self-center w-3/5 mt-4 md:w-2/5">
           Submit
         </Button>
+        <div className="flex flex-row self-center gap-1">
+          <p className="mt-2 text-xs font-light md:text-xs ">
+            Already have an account?
+          </p>
+          <Link
+            to="/sign-in"
+            className="mt-2 text-xs font-bold text-blue-800 md:text-xs "
+          >
+            Login
+          </Link>
+        </div>
       </form>
     </Form>
   );
