@@ -10,3 +10,8 @@ export const SignUpValidation = z.object({
   username: z.string().min(2),
   password: z.string().min(2),
 });
+
+export const SignInValidation = z.object({
+  email: z.string().email().min(2),
+  password: z.string().min(2),
+});
