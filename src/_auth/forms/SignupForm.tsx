@@ -2,9 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { useNavigate } from "react-router-dom";
-
-//import { INewUser } from "@/types/index";
+import { userSignUp } from "@/lib/functions/auth";
 
 import Button from "@/components/Button";
 import {
@@ -19,8 +17,6 @@ import Input from "@/components/Input";
 import { SignUpValidation } from "@/lib/validations/index";
 
 const SignUpForm = () => {
-  const navigate = useNavigate();
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpValidation>>({
     resolver: zodResolver(SignUpValidation),
@@ -33,14 +29,6 @@ const SignUpForm = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignUpValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    navigate("/sign-in");
-    console.log(values);
-  }
-
   return (
     <Form {...form}>
       <div className="flex flex-col text-center">
@@ -52,7 +40,7 @@ const SignUpForm = () => {
         </p>
       </div>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(userSignUp)}
         className="flex flex-col w-full gap-2 mt-4 md:w-3/5"
       >
         <FormField
