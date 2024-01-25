@@ -1,5 +1,9 @@
 import { FirebaseAuth, FirestoreDB } from "../../firebase.init";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 import {
@@ -35,8 +39,4 @@ async function createUserinDB(userRecord: UserRecordValidation, uid: string) {
   });
 }
 
-function userSignIn(signInUser: z.infer<typeof SignInValidation>) {
-  console.log("UserSignUP", signInUser);
-}
-
-export { userSignUp, userSignIn };
+export { userSignUp };

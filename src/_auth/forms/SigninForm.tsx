@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { userSignIn } from "@/lib/functions/auth";
+import { FirebaseAuth } from "../../firebase.init";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import Button from "@/components/Button";
 import {
@@ -19,6 +21,7 @@ import Input from "@/components/Input";
 import { SignInValidation } from "@/lib/validations/index";
 
 function SignInForm() {
+  const navigate = useNavigate();
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignInValidation>>({
     resolver: zodResolver(SignInValidation),
@@ -27,6 +30,21 @@ function SignInForm() {
       password: "",
     },
   });
+
+  function userSignIn(signInUser: z.infer<typeof SignInValidation>) {
+    signInWithEmailAndPassword(
+      FirebaseAuth,
+      signInUser.email,
+      signInUser.password
+    )
+      .then((userCredential) => {
+        navigate("/user-dashboard");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  }
 
   return (
     <Form {...form}>
