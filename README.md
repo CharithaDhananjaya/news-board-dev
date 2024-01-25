@@ -1,5 +1,7 @@
 # NewsBoard Project
 
+Hosted: [https://newsboard-74aaf.firebaseapp.com/]
+
 This project is intended to scrape the news websites'content and rate them based on "Readers" parameters.
 
 - Readers of Sri Lanka, Sinhala and English News Webs are considered
