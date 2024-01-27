@@ -1,14 +1,10 @@
 import { FirebaseAuth, FirestoreDB } from "../../firebase.init";
 
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 import {
   SignUpValidation,
-  SignInValidation,
   UserRecordValidation,
 } from "@/lib/validations/index";
 import * as z from "zod";
