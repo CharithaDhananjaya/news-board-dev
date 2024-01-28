@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import AuthLayout from "@/_auth/AuthLayout";
-import SigninForm from "@/_auth/forms/SigninForm";
-import SignupForm from "@/_auth/forms/SignupForm";
+import AuthLayout from "@/pages/_auth/AuthLayout";
+import SigninForm from "@/pages/_auth/forms/SigninForm";
+import SignupForm from "@/pages/_auth/forms/SignupForm";
 
-import RootLayout from "@/_root/RootLayout";
-import Home from "@/_root/pages/Home";
+import RootLayout from "@/pages/_root/RootLayout";
+import Home from "@/pages/_root/pages/Home";
 
-import UserDashBoard from "@/_user/UserDashBoard";
+import UserDashBoard from "@/pages/_user/UserDashBoard";
 
 function App() {
   return (
