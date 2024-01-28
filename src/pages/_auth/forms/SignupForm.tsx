@@ -84,7 +84,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="firstName"
-          render={({ field }: { field: string }) => (
+          render={({ field }: { field: z.infer<typeof SignUpValidation> }) => (
             <FormItem>
               <FormLabel className="text-sm font-semibold">
                 First Name
@@ -99,7 +99,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="lastName"
-          render={({ field }: { field: string }) => (
+          render={({ field }: { field: z.infer<typeof SignUpValidation> }) => (
             <FormItem>
               <FormLabel className="text-sm font-semibold">Last Name</FormLabel>
               <FormControl>
@@ -112,7 +112,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }: { field: string }) => (
+          render={({ field }: { field: z.infer<typeof SignUpValidation> }) => (
             <FormItem>
               <FormLabel className="text-sm font-semibold">E mail</FormLabel>
               <FormControl>
@@ -125,7 +125,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="username"
-          render={({ field }: { field: string }) => (
+          render={({ field }: { field: z.infer<typeof SignUpValidation> }) => (
             <FormItem>
               <FormLabel className="text-sm font-semibold">Username</FormLabel>
               <FormControl>
@@ -138,7 +138,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="password"
-          render={({ field }: { field: string }) => (
+          render={({ field }: { field: z.infer<typeof SignUpValidation> }) => (
             <FormItem>
               <FormLabel className="text-sm font-semibold">Password</FormLabel>
               <FormControl>
