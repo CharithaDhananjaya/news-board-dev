@@ -4,7 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { userSignUp } from "@/lib/functions/auth";
+import { FirebaseAuth, FirestoreDB } from "@/firebase.init";
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 import Button from "@/components/Button";
 import {
@@ -16,7 +19,10 @@ import {
   FormMessage,
 } from "@/components/shadui/Form";
 import Input from "@/components/Input";
-import { SignUpValidation } from "@/lib/validations/index";
+import {
+  SignUpValidation,
+  UserRecordValidation,
+} from "@/lib/validations/index";
 
 const SignUpForm = () => {
   // 1. Define your form.
@@ -30,6 +36,36 @@ const SignUpForm = () => {
       password: "",
     },
   });
+
+  async function userSignUp(newUser: z.infer<typeof SignUpValidation>) {
+    createUserWithEmailAndPassword(
+      FirebaseAuth,
+      newUser.email,
+      newUser.password
+    )
+      .then((userCredential) => {
+        const userRecord = {
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          email: newUser.email,
+          username: newUser.username,
+        };
+
+        createUserinDB(userRecord, userCredential.user.uid);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Error", errorCode, errorMessage);
+      });
+  }
+
+  //Creating the User in FirestoreDB
+  async function createUserinDB(userRecord: UserRecordValidation, uid: string) {
+    await setDoc(doc(FirestoreDB, "users", uid), userRecord).then(() => {
+      console.log("User Created");
+    });
+  }
 
   return (
     <Form {...form}>
