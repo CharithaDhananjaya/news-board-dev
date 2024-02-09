@@ -5,9 +5,10 @@ import SigninForm from "@/pages/_auth/forms/SigninForm";
 import SignupForm from "@/pages/_auth/forms/SignupForm";
 
 import RootLayout from "@/pages/_root/RootLayout";
-import Home from "@/pages/_root/pages/Home";
+import Home from "@/pages/_root/views/Home";
 
-import UserDashBoard from "@/pages/_user/UserDashBoard";
+import UserDashBoardLayout from "@/pages/_user/UserDashBoardLayout";
+import UserDashbaord from "@/pages/_user/views/UserDashBoard";
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
             <Route element={<RootLayout />}>
               <Route index element={<Home />}></Route>
             </Route>
-            <Route path="/user-dashboard" element={<UserDashBoard />}></Route>
+            <Route element={<UserDashBoardLayout />}>
+              <Route path="/user-dashboard" element={<UserDashbaord />}></Route>
+            </Route>
           </Routes>
         </BrowserRouter>
       </main>
