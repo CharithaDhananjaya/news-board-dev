@@ -38,11 +38,11 @@ function SignInForm() {
       signInUser.password
     )
       .then((userCredential) => {
+        console.log(userCredential);
         navigate("/user-dashboard");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error);
       });
   }
 
